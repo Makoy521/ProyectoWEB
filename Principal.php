@@ -15,7 +15,7 @@
 			$result = $stm->rowCount();
 
       if($result!=1) {
-        echo '<script> alert("Hubo pedos") </script>';
+        echo '<script> alert("Error") </script>';
       } 
   } else if(isset($_GET['delete'])){
       require_once($_SERVER['DOCUMENT_ROOT'].'/ProyectoWEB/DB.php');
@@ -29,7 +29,7 @@
 			$result = $stm->rowCount();
 
       if($result != 1) {
-        echo '<script> alert("Hubo pedos") </script>';
+        echo '<script> alert("Error") </script>';
       } 
   }
 ?>
@@ -72,11 +72,12 @@
             $stm->execute();
   
             while ($row=$stm->fetch()) {
-              $data ='<div class="report">
-                <div class="report-title"> Reporte - '.$row['fecha'].'</div>
-                <div class="body-cont">
+              $data =
+              '<div class="report '.$row['estatus'].'">
+                <div class="titulo-reporte"> Reporte - '.$row['fecha'].'</div>
+                <div class="body-rep">
                   <div class="img-View"><img src="subemesta/'.$row['fotografia'].'"></div>
-                  <div class="info-cont">	
+                  <div class="info">	
                     <ul>
                       <li>Estatus: '.$row['estatus'].'</li>	
                       <li> Problema presentado: '.$row['tipo'].'</li>
@@ -93,21 +94,24 @@
             $stm->execute();
   
             while ($row=$stm->fetch()) {
-              $data ='<div class="report">
-                <div class="report-title"> Reporte - '.$row['fecha'].'</div>
-                <div class="body-cont">
+              $data =
+              '<div class="report '.$row['estatus'].'">
+                <div class="titulo-reporte"> Reporte - '.$row['fecha'].'</div>
+                <div class="body-rep">
                   <div class="img-View"><img src="subemesta/'.$row['fotografia'].'"></div>
-                  <div class="info-cont">	
+                  <div class="info">	
                     <ul>
-                      <li>Estatus: '. $row['estatus'].'</li>	
-                      <li> Problema presentado: '.$row['tipo'].'</li>
-                    </ul>
+                    <li>Estatus: '.$row['estatus'].'</li>	
+                    <li> Problema presentado: '.$row['tipo'].'</li>
+                  </ul>
+                  <div class="botones-prin">
                     <a href="Principal.php?finish='.$row['idDenuncia'].'" class="btn btn-primary btn-sm">Terminar</a>
                     <a href="Principal.php?delete='.$row['idDenuncia'].'" class="btn btn-primary btn-sm">Eliminar</a>
-                  </div>	
-                </div> 
-              </div>';
-              echo $data;
+                  </div>
+                </div>	
+              </div> 
+            </div>';
+            echo $data;
             }
           }
          
